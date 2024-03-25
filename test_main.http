@@ -1,0 +1,124 @@
+# Test your FastAPI endpoints
+
+### Create Amadou User
+POST {{BASE_URL}}/users/
+Content-Type: application/json
+
+{
+  "email": "{{AMADOU_EMAIL}}",
+  "password": "{{AMADOU_PASSWORD}}",
+  "name": "Amadou Diallo"
+
+}
+
+### Create Taylor User
+POST {{BASE_URL}}/users/
+Content-Type: application/json
+
+{
+  "email": "taylor@gmail.com",
+  "password": "taylorpassword",
+  "name": "TAYLOR Diallo"
+}
+
+### Create Unknow User
+POST {{BASE_URL}}/users/
+Content-Type: application/json
+
+{
+  "email": "unknow_user@user.com",
+  "password": "taylorpassword",
+  "name": "TAYLOR Diallo"
+}
+
+### Create Existing User
+POST {{BASE_URL}}/users/
+Content-Type: application/json
+
+{
+  "email": "{{AMADOU_EMAIL}}",
+  "password": "azerty",
+  "name": "exixting Diallo"
+}
+
+### Invalid Scheme User without required name field
+POST {{BASE_URL}}/users/
+Content-Type: application/json
+
+{
+  "email": "{{AMADOU_EMAIL}}",
+  "password": "{{AMADOU_PASSWORD}}"
+
+}
+
+### Invalid Email User
+POST {{BASE_URL}}/users/
+Content-Type: application/json
+
+{
+  "email": "toto.com",
+  "password": "fakepassword",
+  "name": "fakename"
+}
+
+### Get User with id 1
+GET {{BASE_URL}}/users/1
+Accept: application/json
+
+### Get User with id 2
+GET {{BASE_URL}}/users/2
+Accept: application/json
+
+### Get User with invalid id
+GET {{BASE_URL}}/users/123
+Accept: application/json
+
+### Login Amadou User
+POST {{BASE_URL}}/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username = {{AMADOU_EMAIL}} &
+password = {{AMADOU_PASSWORD}}
+
+> {%
+    client.global.set("access_token", response.body["access_token"])
+%}
+
+
+### Login Amadou User with invalid Password
+POST {{BASE_URL}}/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username = {{AMADOU_EMAIL}} &
+password = fakepassword
+
+
+### Login Invalid User
+POST {{BASE_URL}}/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username = fakeemail &
+password = fakepassword
+
+### Upload PDF File
+POST {{BASE_URL}}/files
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer {{access_token}}
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file";
+
+< ./ressources/exercice_revision.pdf
+--WebAppBoundary--
+
+### Upload PNG File
+POST {{BASE_URL}}/files?filename=photo.png
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file";
+
+< ./ressources/2023-07-29.png
+--WebAppBoundary--
+
+###

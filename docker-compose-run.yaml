@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  storage-api:
+    image: amadoukorka/storage-api:latest
+    ports:
+      - "8000:8000"
+    environment:
+      MONGO_USERNAME: amadou
+      MONGO_PASSWORD: Amadou_dev301030
+      MONGO_HOST: localhost
+      MONGO_DATABASE: drive_storage_files
+      MONGO_PORT: 27017
+      POSTGRES_USERNAME: amadou
+      POSTGRES_PASSWORD: Amadou_dev301030
+      POSTGRES_HOST: localhost
+      POSTGRES_DATABASE: drive_storage_users
+      POSTGRES_PORT: 5432
+      SECRET_KEY: f8a9574839e738a2099049e85b678ec7d18c4d039bc6bec1113b0f2a18991f9c
+      CHUNK_SIZE: 1048576
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 60
+
+
+  mongo:
+    image: mongo:7.0
+    # restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: amadou
+      MONGO_INITDB_ROOT_PASSWORD: Amadou_dev301030
+
+  postgres:
+    image: postgres:16.0
+    # restart: always
+    environment:
+      POSTGRES_DB: drive_storage_users
+      POSTGRES_USER: amadou
+      POSTGRES_PASSWORD: Amadou_dev301030
+    ports:
+      - "5432:5432"

@@ -1,0 +1,7 @@
+venv/
+.env
+Dockerfile
+.dockerignore
+http-client.env.json
+http-client.private.env.json
+test_main.http

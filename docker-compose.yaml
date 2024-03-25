@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7.0
+    # restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: amadou
+      MONGO_INITDB_ROOT_PASSWORD: Amadou_dev301030
+
+  postgres:
+    image: postgres:16.0
+    # restart: always
+    environment:
+      POSTGRES_DB: drive_storage_users
+      POSTGRES_USER: amadou
+      POSTGRES_PASSWORD: Amadou_dev301030
+    ports:
+      - "5432:5432"
